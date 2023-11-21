@@ -4,7 +4,7 @@ require_relative "lib/rspec/active_record/version"
 
 Gem::Specification.new do |spec|
   spec.name = "rspec-active_record"
-  spec.version = Rspec::Activerecord::VERSION
+  spec.version = RSpec::ActiveRecord::VERSION
   spec.authors = ["Andrius Chamentauskas"]
   spec.email = ["andrius.chamentauskas@gmail.com"]
 

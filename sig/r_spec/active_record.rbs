@@ -1,0 +1,5 @@
+module RSpec
+  module ActiveRecord
+    VERSION: String
+  end
+end

@@ -13,7 +13,7 @@ RSpec.describe RSpec::ActiveRecord::DiffForMultipleRecords do
     stub_model :User
   end
 
-  describe '#call' do
+  describe "#call" do
     subject { diff.call }
 
     it { is_expected.to eq(<<~MSG.chomp) }

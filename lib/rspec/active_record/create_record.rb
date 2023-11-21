@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module RSpec
   module ActiveRecord
+    # A matcher
     class CreateRecord
       include RSpec::Matchers::Composable
       include RSpec::Matchers::BuiltIn::BaseMatcher::HashFormatting

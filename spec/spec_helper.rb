@@ -4,7 +4,7 @@ require "rspec/active_record"
 require "rspec/matchers/fail_matchers"
 require "database_cleaner/active_record"
 
-require_relative 'support/active_record_setup'
+require_relative "support/active_record_setup"
 DatabaseCleaner.strategy = :transaction
 
 RSpec.configure do |config|

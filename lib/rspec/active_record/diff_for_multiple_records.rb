@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module RSpec
   module ActiveRecord
+    # @api private
     class DiffForMultipleRecords
       def initialize(attributes, records)
         @attributes = attributes

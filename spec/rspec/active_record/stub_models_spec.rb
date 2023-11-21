@@ -30,12 +30,12 @@ RSpec.describe RSpec::ActiveRecord::StubModels do
         .and have_attributes(
           name: "User",
           superclass: ApplicationRecord,
-          table_name: 'users',
+          table_name: "users",
           dummy_method: "Dummy Name"
         )
     end
 
-    context 'without block' do
+    context "without block" do
       subject { stub_model :User }
 
       it do
@@ -43,7 +43,7 @@ RSpec.describe RSpec::ActiveRecord::StubModels do
           .and have_attributes(
             name: "User",
             superclass: ApplicationRecord,
-            table_name: 'users',
+            table_name: "users"
           )
       end
     end
