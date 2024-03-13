@@ -10,7 +10,9 @@ module RSpec
   module ActiveRecord
     autoload :ChangeRecord, "rspec/active_record/change_record"
     autoload :CreateRecord, "rspec/active_record/create_record"
+    autoload :DestroyRecord, "rspec/active_record/destroy_record"
     autoload :DiffForMultipleRecords, "rspec/active_record/diff_for_multiple_records"
+    autoload :RecordMatcher, "rspec/active_record/record_matcher"
     autoload :StubModels, "rspec/active_record/stub_models"
     autoload :VERSION, "rspec/active_record/version"
 
@@ -38,6 +40,15 @@ module RSpec
     #   expect { user.update!(name: "RSpec User") }.to change_record(user).from(name: "Initial Name")
     def change_record(record)
       ChangeRecord.new(record)
+    end
+
+    # Allows matching that code inside a block destroyed specific record.
+    # @param record [ActiveRecord::Base] Model that should be destroyed
+    # @return [ChangeRecord]
+    # @example Block destroyed record
+    #   expect { user.destroy! }.to destroy_record(user)
+    def destroy_record(record)
+      DestroyRecord.new(record)
     end
   end
 end

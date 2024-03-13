@@ -3,15 +3,8 @@
 module RSpec
   module ActiveRecord
     # A matcher
-    class ChangeRecord
-      include RSpec::Matchers::Composable
+    class ChangeRecord < RecordMatcher
       include RSpec::Matchers::BuiltIn::BaseMatcher::HashFormatting
-
-      delegate :fail_with, to: RSpec::Expectations
-
-      def initialize(record)
-        @record = record
-      end
 
       # Attributes of record should match these after block is executed
       def to(**attributes)
@@ -23,10 +16,6 @@ module RSpec
       def from(**attributes)
         @from = attributes
         self
-      end
-
-      def supports_block_expectations?
-        true
       end
 
       def matches?(block)
@@ -55,7 +44,7 @@ module RSpec
       end
 
       def description
-        message = "change #{format_name(@record)}"
+        message = "change #{format_record}"
         message += " from #{format_hash(@from)}" if @from
         message += " to #{format_hash(@to)}" if @to
         message
@@ -63,13 +52,13 @@ module RSpec
 
       def failure_message
         if @from_post_match
-          "expected to change #{format_name(@record)} from #{format_hash(@from)} but did not"
+          "expected to change #{format_record} from #{format_hash(@from)} but did not"
         elsif @to_pre_match
-          "expected #{format_name(@record)} to not match #{format_hash(@to)} initially but it did"
+          "expected #{format_record} to not match #{format_hash(@to)} initially but it did"
         elsif @from_diff
-          "expected #{format_name(@record)} to match #{format_hash(@from)} initially but it did not#{@from_diff}"
+          "expected #{format_record} to match #{format_hash(@from)} initially but it did not#{@from_diff}"
         elsif @to_diff
-          "expected to change #{format_name(@record)} to #{format_hash(@to)} but did not#{@to_diff}"
+          "expected to change #{format_record} to #{format_hash(@to)} but did not#{@to_diff}"
         else
           "please specify from or to for change_record"
         end
@@ -81,17 +70,13 @@ module RSpec
         elsif @from.blank?
           "negative matcher for change_record without from is not supported"
         elsif @from_diff
-          "expected #{format_name(@record)} to match #{format_hash(@from)} initially but it did not#{@from_diff}"
+          "expected #{format_record} to match #{format_hash(@from)} initially but it did not#{@from_diff}"
         elsif !@from_post_match
-          "expected not to change #{format_name(@record)} from #{format_hash(@from)} but it did"
+          "expected not to change #{format_record} from #{format_hash(@from)} but it did"
         end
       end
 
       private
-
-      def format_name(record)
-        "#{record.class.name}##{record.id}"
-      end
 
       def format_hash(hash)
         improve_hash_formatting RSpec::Support::ObjectFormatter.format(surface_descriptions_in(hash))
