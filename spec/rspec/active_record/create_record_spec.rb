@@ -49,11 +49,11 @@ RSpec.describe RSpec::ActiveRecord::CreateRecord do
       expected to create User matching {:name => (include "Dan")} but did not
 
       Diff for User#1
-      \e[0m
-      \e[0m\e[34m@@ -1 +1 @@
-      \e[0m\e[31m-:name => (include \"Dan\"),
-      \e[0m\e[32m+:name => \"Andrius\",
-      \e[0m
+
+      @@ -1 +1 @@
+      -:name => (include \"Dan\"),
+      +:name => \"Andrius\",
+
     MSG
   end
 

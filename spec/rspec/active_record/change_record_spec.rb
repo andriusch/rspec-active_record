@@ -36,11 +36,11 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
         expected to change User#1 to {:name => "changed"} but did not
 
         Diff for User#1
-        \e[0m
-        \e[0m\e[34m@@ -1 +1 @@
-        \e[0m\e[31m-:name => "changed",
-        \e[0m\e[32m+:name => "initial",
-        \e[0m
+
+        @@ -1 +1 @@
+        -:name => "changed",
+        +:name => "initial",
+
       MSG
     end
 
@@ -63,11 +63,11 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
         expected User#1 to match {:name => "changed"} initially but it did not
 
         Diff for User#1
-        \e[0m
-        \e[0m\e[34m@@ -1 +1 @@
-        \e[0m\e[31m-:name => "changed",
-        \e[0m\e[32m+:name => "initial",
-        \e[0m
+
+        @@ -1 +1 @@
+        -:name => "changed",
+        +:name => "initial",
+
       MSG
     end
 
@@ -100,11 +100,11 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
         expected User#1 to match {:name => "changed"} initially but it did not
 
         Diff for User#1
-        \e[0m
-        \e[0m\e[34m@@ -1 +1 @@
-        \e[0m\e[31m-:name => "changed",
-        \e[0m\e[32m+:name => "initial",
-        \e[0m
+
+        @@ -1 +1 @@
+        -:name => "changed",
+        +:name => "initial",
+
       MSG
     end
 

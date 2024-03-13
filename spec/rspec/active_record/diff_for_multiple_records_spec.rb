@@ -18,18 +18,18 @@ RSpec.describe RSpec::ActiveRecord::DiffForMultipleRecords do
 
     it { is_expected.to eq(<<~MSG.chomp) }
       Diff for User##{andrius.id}
-      \e[0m
-      \e[0m\e[34m@@ -1 +1 @@
-      \e[0m\e[31m-:name => \"Dan\",
-      \e[0m\e[32m+:name => \"Andrius\",
-      \e[0m
+
+      @@ -1 +1 @@
+      -:name => \"Dan\",
+      +:name => \"Andrius\",
+
 
       Diff for User##{john.id}
-      \e[0m
-      \e[0m\e[34m@@ -1 +1 @@
-      \e[0m\e[31m-:name => \"Dan\",
-      \e[0m\e[32m+:name => \"John\",
-      \e[0m
+
+      @@ -1 +1 @@
+      -:name => \"Dan\",
+      +:name => \"John\",
+
     MSG
   end
 end

@@ -1,4 +1,4 @@
 --format documentation
---color
+--no-color
 --require spec_helper
 --backtrace
