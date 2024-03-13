@@ -1,24 +1,92 @@
-# Rspec::Activerecord
+# Rspec::ActiveRecord
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rspec/active_record`. To experiment with that code, run `bin/console` for an interactive prompt.
+Implements helper methods & matchers when working with RSpec & ActiveRecord.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ bundle add rspec-active_record --group test
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ gem install rspec-active_record
 
 ## Usage
 
-TODO: Write usage instructions here
+### create_record
+
+Check that block creates a record:
+
+```ruby
+expect { User.create!(name: "RSpec User") }.to create_record(User)
+```
+
+You can also make sure that attributes match, if it fails you'll get RSpec diff between created record and what you expected:
+
+```ruby
+expect { User.create!(name: "RSpec User") }.to create_record(User).matching(name: "RSpec User")
+```    
+
+You can also achieve similar results using a scope, but not that in this case you won't see a diff:
+
+```ruby
+expect { User.create!(name: "RSpec User") }.to create_record(User.where(name: "RSpec User"))
+```
+
+### change_record
+
+Check that code updates attributes of your record (note that it will automatically refind the record, so make sure changes are saved):
+```ruby
+expect { user.update!(name: "RSpec User") }.to change_record(user).to(name: "RSpec User")
+```
+
+Sometimes it's useful to specify what the attributes should've been initially:
+```ruby
+expect { user.update!(name: "RSpec User") }.to change_record(user).from(name: "Initial Name")
+```
+
+### destroy_record
+
+Check that code destroys a record:
+```ruby
+expect { user.destroy! }.to destroy_record(user)
+```
+
+### stub_class
+
+Stub class for a spec, pass a block to customize the class:
+
+```ruby
+stub_class :DummyDecorator, ApplicationDecorator do
+  def object
+    Object.new
+  end
+end
+DummyDecorator.new.object #=> #<Object>
+```
+
+### stub_model
+
+Similar to `stub_class` but automatically inherits from ApplicationRecord:
+
+
+```ruby
+stub_model :DummyUser do
+  belongs_to :client, optional: true
+end
+DummyUser.new.client #=> nil
+```
+
+### create_temporary_table
+
+Requires database that supports modifying structure inside transaction. Combines well with `stub_model` to create table for stubbed model:
+
+```ruby
+create_temporary_table :dummy_users do |t|
+  t.belongs_to :client
+end
+```
 
 ## Development
 
@@ -28,7 +96,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rspec-active_record.
+Bug reports and pull requests are welcome on GitHub at https://github.com/andriusch/rspec-active_record.
 
 ## License
 
