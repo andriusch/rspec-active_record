@@ -4,9 +4,19 @@ Implements helper methods & matchers when working with RSpec & ActiveRecord.
 
 ## Installation
 
-Install the gem and add to the application's Gemfile by executing:
+Add it to Gemfile:
 
-    $ bundle add rspec-active_record --group test
+```ruby
+group :test do
+  gem "rspec-active_record", require: false
+end
+```
+
+And require it in your `rails_helper` or `spec_helper` after `rspec/rails`:
+
+```ruby
+require "rspec/active_record"
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
