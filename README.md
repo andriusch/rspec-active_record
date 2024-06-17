@@ -30,6 +30,7 @@ Check that block creates a record:
 
 ```ruby
 expect { User.create!(name: "RSpec User") }.to create_record(User)
+expect { User.create!(name: "RSpec User") }.to not_create_record(Company)
 ```
 
 You can also make sure that attributes match, if it fails you'll get RSpec diff between created record and what you expected:
@@ -54,6 +55,7 @@ expect { user.update!(name: "RSpec User") }.to change_record(user).to(name: "RSp
 Sometimes it's useful to specify what the attributes should've been initially:
 ```ruby
 expect { user.update!(name: "RSpec User") }.to change_record(user).from(name: "Initial Name")
+expect { user.name = "RSpec User" }.to not_change_record(user).from(name: "Initial Name")
 ```
 
 ### destroy_record
@@ -61,6 +63,7 @@ expect { user.update!(name: "RSpec User") }.to change_record(user).from(name: "I
 Check that code destroys a record:
 ```ruby
 expect { user.destroy! }.to destroy_record(user)
+expect { user.save! }.to not_destroy_record(user)
 ```
 
 ### stub_class

@@ -12,7 +12,7 @@ module RSpec
       end
 
       # Make sure that created record matches attributes
-      def matching(**attributes)
+      def matching(attributes)
         @attributes = attributes
         self
       end

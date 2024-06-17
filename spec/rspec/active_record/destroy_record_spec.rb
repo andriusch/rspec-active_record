@@ -31,13 +31,13 @@ RSpec.describe RSpec::ActiveRecord::DestroyRecord do
 
   describe "negative matcher" do
     it "matches when record is destroyed" do
-      expect { user.save! }.not_to destroy_record(user)
+      expect { user.save! }.to not_destroy_record(user)
     end
 
     it "doesn't match when record is not destroyed" do
       user.update!(name: "changed")
       expect do
-        expect { user.destroy! }.not_to destroy_record(user)
+        expect { user.destroy! }.to not_destroy_record(user)
       end.to fail_with(<<~MSG.chomp)
         expected not to destroy User#1 but did
       MSG

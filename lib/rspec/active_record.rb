@@ -53,3 +53,7 @@ module RSpec
   end
 end
 RSpec.configuration.include RSpec::ActiveRecord
+
+RSpec::Matchers.define_negated_matcher :not_create_record, :create_record
+RSpec::Matchers.define_negated_matcher :not_change_record, :change_record
+RSpec::Matchers.define_negated_matcher :not_destroy_record, :destroy_record

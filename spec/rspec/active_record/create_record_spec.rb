@@ -58,12 +58,12 @@ RSpec.describe RSpec::ActiveRecord::CreateRecord do
   end
 
   it "matches when record is not created" do
-    expect { User.new }.not_to create_record(User)
+    expect { User.new }.to not_create_record(User)
   end
 
   it "doesn't match when record is created" do
     expect do
-      expect { User.create! }.not_to create_record(User)
+      expect { User.create! }.to not_create_record(User)
     end.to fail_with("expected not to create User but did")
   end
 end

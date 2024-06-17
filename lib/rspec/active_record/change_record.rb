@@ -7,13 +7,13 @@ module RSpec
       include RSpec::Matchers::BuiltIn::BaseMatcher::HashFormatting
 
       # Attributes of record should match these after block is executed
-      def to(**attributes)
+      def to(attributes)
         @to = attributes
         self
       end
 
       # Attributes of record should match these before block is executed
-      def from(**attributes)
+      def from(attributes)
         @from = attributes
         self
       end

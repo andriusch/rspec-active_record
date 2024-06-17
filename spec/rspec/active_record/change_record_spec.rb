@@ -82,12 +82,12 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
 
   describe "negative matcher" do
     it "matches when record is not changed" do
-      expect { user.assign_attributes(name: "changed") }.not_to change_record(user).from(name: "initial")
+      expect { user.assign_attributes(name: "changed") }.to not_change_record(user).from(name: "initial")
     end
 
     it "doesn't match when record changed from initial" do
       expect do
-        expect { user.update!(name: "changed") }.not_to change_record(user).from(name: "initial")
+        expect { user.update!(name: "changed") }.to not_change_record(user).from(name: "initial")
       end.to fail_with(<<~MSG.chomp)
         expected not to change User#1 from {:name => "initial"} but it did
       MSG
@@ -95,7 +95,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
 
     it "doesn't match when record did not match initial attributes" do
       expect do
-        expect { user.assign_attributes(name: "changed") }.not_to change_record(user).from(name: "changed")
+        expect { user.assign_attributes(name: "changed") }.to not_change_record(user).from(name: "changed")
       end.to fail_with(<<~MSG.chomp)
         expected User#1 to match {:name => "changed"} initially but it did not
 
@@ -110,7 +110,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
 
     it "doesn't match when from is not specified" do
       expect do
-        expect { user.update!(name: "changed") }.not_to change_record(user)
+        expect { user.update!(name: "changed") }.to not_change_record(user)
       end.to fail_with(<<~MSG.chomp)
         negative matcher for change_record without from is not supported
       MSG
@@ -118,7 +118,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
 
     it "doesn't match when to is specified" do
       expect do
-        expect { user.update!(name: "changed") }.not_to change_record(user).from(name: "initial").to(name: "changed")
+        expect { user.update!(name: "changed") }.to not_change_record(user).from(name: "initial").to(name: "changed")
       end.to fail_with(<<~MSG.chomp)
         negative matcher for change_record with to is not supported
       MSG
