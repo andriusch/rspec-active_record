@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Add support for times in create_record
+
 ## [0.2.0] - 2024-07-12
 
 - Add support for negative matchers

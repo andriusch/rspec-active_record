@@ -33,6 +33,12 @@ expect { User.create!(name: "RSpec User") }.to create_record(User)
 expect { User.create!(name: "RSpec User") }.to not_create_record(Company)
 ```
 
+Sometimes you also need to match specific count of records:
+```ruby
+expect { User.create!(name: "RSpec User") }.to create_record(User).once
+expect { User.create!(name: "RSpec User") }.to create_record(User).times(1)
+```
+
 You can also make sure that attributes match, if it fails you'll get RSpec diff between created record and what you expected:
 
 ```ruby

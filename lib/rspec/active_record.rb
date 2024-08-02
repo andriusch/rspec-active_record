@@ -12,6 +12,7 @@ module RSpec
     autoload :CreateRecord, "rspec/active_record/create_record"
     autoload :DestroyRecord, "rspec/active_record/destroy_record"
     autoload :DiffForMultipleRecords, "rspec/active_record/diff_for_multiple_records"
+    autoload :Matcher, "rspec/active_record/matcher"
     autoload :RecordMatcher, "rspec/active_record/record_matcher"
     autoload :StubModels, "rspec/active_record/stub_models"
     autoload :VERSION, "rspec/active_record/version"

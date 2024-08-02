@@ -66,4 +66,22 @@ RSpec.describe RSpec::ActiveRecord::CreateRecord do
       expect { User.create! }.to not_create_record(User)
     end.to fail_with("expected not to create User but did")
   end
+
+  it "matches when 1 record is created" do
+    expect { User.create! }.to create_record(User).once
+  end
+
+  it "doesn't match when only 1 record is created" do
+    expect do
+      expect { User.create! }.to create_record(User).twice
+    end.to fail_with("expected to create User 2 times but created 1")
+
+    expect do
+      expect { User.create! }.to create_record(User).thrice
+    end.to fail_with("expected to create User 3 times but created 1")
+
+    expect do
+      expect { User.create!([{}, {}]) }.to create_record(User).once
+    end.to fail_with("expected to create User 1 time but created 2")
+  end
 end

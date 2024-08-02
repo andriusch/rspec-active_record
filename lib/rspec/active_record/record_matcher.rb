@@ -3,15 +3,10 @@
 module RSpec
   module ActiveRecord
     # A matcher
-    class RecordMatcher
-      include RSpec::Matchers::Composable
-
+    class RecordMatcher < Matcher
       def initialize(record)
+        super()
         @record = record
-      end
-
-      def supports_block_expectations?
-        true
       end
 
       private

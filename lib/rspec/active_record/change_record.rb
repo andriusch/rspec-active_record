@@ -78,10 +78,6 @@ module RSpec
 
       private
 
-      def format_hash(hash)
-        improve_hash_formatting RSpec::Support::ObjectFormatter.format(surface_descriptions_in(hash))
-      end
-
       def diff_unless_match(record, attributes)
         diff(record, attributes) unless match_attributes?(record, attributes)
       end
