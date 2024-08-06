@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.3.0] - 2024-08-02
+
 - Add support for times in create_record
 
 ## [0.2.0] - 2024-07-12
