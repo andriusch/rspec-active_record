@@ -23,7 +23,7 @@ module RSpec
         @to_pre_match = !does_not_match_attributes?(@record, @to)
 
         block.call
-        @updated_record = @record.class.find(@record.id)
+        @updated_record = @record.class.base_class.find(@record.id)
 
         @to_diff = diff_unless_match(@updated_record, @to)
         @from_post_match = !does_not_match_attributes?(@updated_record, @from)

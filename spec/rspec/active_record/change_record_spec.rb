@@ -5,6 +5,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
 
   before do
     create_temporary_table :users do |t|
+      t.string :type
       t.string :name
       t.string :email
     end
@@ -77,6 +78,19 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       end.to fail_with(<<~MSG.chomp)
         please specify from or to for change_record
       MSG
+    end
+
+    context 'with STI' do
+      let(:user) { Guest.create! }
+
+      before do
+        stub_class(:Guest, User)
+        stub_class(:Admin, User)
+      end
+
+      it do
+        expect { user.update!(type: "Admin") }.to change_record(user).to(type: "Admin")
+      end
     end
   end
 

@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Fix `change_record` to work when STI type changes
+
 ## [0.3.0] - 2024-08-02
 
 - Add support for times in create_record
