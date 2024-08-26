@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.3.1] - 2024-08-26
+
 - Fix `change_record` to work when STI type changes
 
 ## [0.3.0] - 2024-08-02
