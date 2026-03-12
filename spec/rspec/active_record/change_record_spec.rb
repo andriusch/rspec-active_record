@@ -26,7 +26,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
         expect { user.update!(email: "user@example.com") }
           .to change_record(user).to(name: "changed", email: "user@example.com")
       end.to fail_with(<<~MSG.chomp)
-        expected User#1 to not match {:email => "user@example.com", :name => "changed"} initially but it did
+        expected User#1 to not match {email: "user@example.com", name: "changed"} initially but it did
       MSG
     end
 
@@ -34,7 +34,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       expect do
         expect { user.assign_attributes(name: "changed") }.to change_record(user).to(name: "changed")
       end.to fail_with(<<~MSG.chomp)
-        expected to change User#1 to {:name => "changed"} but did not
+        expected to change User#1 to {name: "changed"} but did not
 
         Diff for User#1
 
@@ -53,7 +53,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       expect do
         expect { user.assign_attributes(name: "changed") }.to change_record(user).from(name: "initial")
       end.to fail_with(<<~MSG.chomp)
-        expected to change User#1 from {:name => "initial"} but did not
+        expected to change User#1 from {name: "initial"} but did not
       MSG
     end
 
@@ -61,7 +61,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       expect do
         expect { user.assign_attributes(name: "changed") }.to change_record(user).from(name: "changed")
       end.to fail_with(<<~MSG.chomp)
-        expected User#1 to match {:name => "changed"} initially but it did not
+        expected User#1 to match {name: "changed"} initially but it did not
 
         Diff for User#1
 
@@ -103,7 +103,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       expect do
         expect { user.update!(name: "changed") }.to not_change_record(user).from(name: "initial")
       end.to fail_with(<<~MSG.chomp)
-        expected not to change User#1 from {:name => "initial"} but it did
+        expected not to change User#1 from {name: "initial"} but it did
       MSG
     end
 
@@ -111,7 +111,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       expect do
         expect { user.update!(name: "changed") }.to not_change_record(user).from(name: "initial", email: nil)
       end.to fail_with(<<~MSG.chomp)
-        expected not to change User#1 from {:email => nil, :name => "initial"} but it did
+        expected not to change User#1 from {email: nil, name: "initial"} but it did
       MSG
     end
 
@@ -119,7 +119,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       expect do
         expect { user.assign_attributes(name: "changed") }.to not_change_record(user).from(name: "changed")
       end.to fail_with(<<~MSG.chomp)
-        expected User#1 to match {:name => "changed"} initially but it did not
+        expected User#1 to match {name: "changed"} initially but it did not
 
         Diff for User#1
 

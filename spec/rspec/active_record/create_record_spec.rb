@@ -46,7 +46,7 @@ RSpec.describe RSpec::ActiveRecord::CreateRecord do
     expect do
       expect { User.create!(name: "Andrius") }.to create_record(User).matching(name: include("Dan"))
     end.to fail_with(<<~MSG.chomp)
-      expected to create User matching {:name => (include "Dan")} but did not
+      expected to create User matching {name: (include "Dan")} but did not
 
       Diff for User#1
 
