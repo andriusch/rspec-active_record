@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Fix negative `change_record` to fail if at least 1 attribute changed from initial
+
 ## [0.3.1] - 2024-08-26
 
 - Fix `change_record` to work when STI type changes

@@ -40,7 +40,7 @@ module RSpec
         block.call
         @updated_record = @record.class.find(@record.id)
 
-        @from_post_match = !does_not_match_attributes?(@updated_record, @from)
+        @from_post_match = match_attributes?(@updated_record, @from)
       end
 
       def description

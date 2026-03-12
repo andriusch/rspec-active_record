@@ -107,6 +107,14 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       MSG
     end
 
+    it "doesn't match at least one attribute changed from initial" do
+      expect do
+        expect { user.update!(name: "changed") }.to not_change_record(user).from(name: "initial", email: nil)
+      end.to fail_with(<<~MSG.chomp)
+        expected not to change User#1 from {:email => "nil", :name => "initial"} but it did
+      MSG
+    end
+
     it "doesn't match when record did not match initial attributes" do
       expect do
         expect { user.assign_attributes(name: "changed") }.to not_change_record(user).from(name: "changed")
