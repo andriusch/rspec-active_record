@@ -111,7 +111,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       expect do
         expect { user.update!(name: "changed") }.to not_change_record(user).from(name: "initial", email: nil)
       end.to fail_with(<<~MSG.chomp)
-        expected not to change User#1 from {:email => "nil", :name => "initial"} but it did
+        expected not to change User#1 from {:email => nil, :name => "initial"} but it did
       MSG
     end
 

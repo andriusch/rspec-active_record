@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.3.2] - 2025-03-12
+
 - Fix negative `change_record` to fail if at least 1 attribute changed from initial
 
 ## [0.3.1] - 2024-08-26
