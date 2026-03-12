@@ -1,5 +1,9 @@
 AllCops:
   TargetRubyVersion: 2.6
+  NewCops: enable
+
+Layout/LineLength:
+  Max: 120
 
 Metrics/BlockLength:
   Exclude:
@@ -9,6 +13,10 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Enabled: false
 
+Naming/PredicatePrefix:
+  AllowedMethods:
+    - does_not_match?
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
@@ -16,6 +24,3 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
-
-Layout/LineLength:
-  Max: 120

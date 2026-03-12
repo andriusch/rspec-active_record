@@ -56,10 +56,10 @@ module RSpec
 
       def failure_message
         failure = "expected to #{description} but"
-        if !match_times?
-          "#{failure} created #{@new_records.size}"
-        else
+        if match_times?
           add_diff "#{failure} did not"
+        else
+          "#{failure} created #{@new_records.size}"
         end
       end
 

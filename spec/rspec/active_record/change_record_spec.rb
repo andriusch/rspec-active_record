@@ -80,7 +80,7 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       MSG
     end
 
-    context 'with STI' do
+    context "with STI" do
       let(:user) { Guest.create! }
 
       before do

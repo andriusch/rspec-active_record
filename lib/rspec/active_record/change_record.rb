@@ -20,13 +20,13 @@ module RSpec
 
       def matches?(block)
         @from_diff = diff_unless_match(@record, @from)
-        @to_pre_match = !does_not_match_attributes?(@record, @to)
+        @to_pre_match = !not_match_attributes?(@record, @to)
 
         block.call
         @updated_record = @record.class.base_class.find(@record.id)
 
         @to_diff = diff_unless_match(@updated_record, @to)
-        @from_post_match = !does_not_match_attributes?(@updated_record, @from)
+        @from_post_match = !not_match_attributes?(@updated_record, @from)
 
         (@from || @to) && !@from_diff && !@to_pre_match && !@to_diff && !@from_post_match
       end
@@ -92,7 +92,7 @@ module RSpec
         RSpec::Matchers::BuiltIn::HaveAttributes.new(attributes).matches?(record)
       end
 
-      def does_not_match_attributes?(record, attributes)
+      def not_match_attributes?(record, attributes)
         return true unless attributes
 
         RSpec::Matchers::BuiltIn::HaveAttributes.new(attributes).does_not_match?(record)

@@ -20,15 +20,15 @@ RSpec.describe RSpec::ActiveRecord::DiffForMultipleRecords do
       Diff for User##{andrius.id}
 
       @@ -1 +1 @@
-      -:name => \"Dan\",
-      +:name => \"Andrius\",
+      -:name => "Dan",
+      +:name => "Andrius",
 
 
       Diff for User##{john.id}
 
       @@ -1 +1 @@
-      -:name => \"Dan\",
-      +:name => \"John\",
+      -:name => "Dan",
+      +:name => "John",
 
     MSG
   end

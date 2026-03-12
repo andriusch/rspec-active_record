@@ -51,8 +51,8 @@ RSpec.describe RSpec::ActiveRecord::CreateRecord do
       Diff for User#1
 
       @@ -1 +1 @@
-      -:name => (include \"Dan\"),
-      +:name => \"Andrius\",
+      -:name => (include "Dan"),
+      +:name => "Andrius",
 
     MSG
   end
