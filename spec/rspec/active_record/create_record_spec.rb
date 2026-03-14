@@ -84,4 +84,32 @@ RSpec.describe RSpec::ActiveRecord::CreateRecord do
       expect { User.create!([{}, {}]) }.to create_record(User).once
     end.to fail_with("expected to create User 1 time but created 2")
   end
+
+  it "matches multiple records" do
+    expect { User.create!([{ name: "Andrius" }, { name: "Daniel" }]) }
+      .to create_record(User).matching({ name: "Andrius" }, { name: "Daniel" })
+  end
+
+  it "doesn't match when one of the records is not matching attributes" do
+    expect do
+      expect { User.create!([{ name: "Andrius" }, { name: "Jasmine" }]) }
+        .to create_record(User).matching({ name: "Andrius" }, { name: "Daniel" })
+    end.to fail_with(<<~MSG.chomp)
+      expected to create User matching {name: "Andrius"}, matching {name: "Daniel"} but did not
+
+      Diff for User#1
+
+      @@ -1 +1 @@
+      -:name => "Daniel",
+      +:name => "Andrius",
+
+
+      Diff for User#2
+
+      @@ -1 +1 @@
+      -:name => "Daniel",
+      +:name => "Jasmine",
+
+    MSG
+  end
 end

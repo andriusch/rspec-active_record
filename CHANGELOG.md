@@ -1,4 +1,6 @@
-## [Unreleased]
+## [Unreleased
+
+- Allow `create_record.matching` to take multiple attribute hashes
 
 ## [0.3.2] - 2025-03-12
 

@@ -8,11 +8,12 @@ module RSpec
 
       def initialize(scope)
         @scope = scope
+        @attributes = []
         super()
       end
 
       # Make sure that created record matches attributes
-      def matching(attributes)
+      def matching(*attributes)
         @attributes = attributes
         self
       end
@@ -44,13 +45,17 @@ module RSpec
 
         @new_records = @scope.where.not(@scope.primary_key => existing_ids).to_a
 
-        match_times? && match_attributes? && @new_records.present?
+        match_times? && @attributes.all? { |attrs| match_attributes?(attrs) } && @new_records.present?
       end
 
       def description
+        match_messages = @attributes.map do |attrs|
+          " matching #{format_hash(attrs)}"
+        end
+
         message = "create #{scope_name}"
         message += " #{@times} time#{"s" if @times != 1}" if @times
-        message += " matching #{format_hash(@attributes)}" if @attributes
+        message += match_messages.join(",")
         improve_hash_formatting message
       end
 
@@ -70,7 +75,9 @@ module RSpec
       private
 
       def add_diff(message)
-        message += "\n\n#{DiffForMultipleRecords.new(@attributes, @new_records).call}" if @attributes
+        @attributes.each do |attrs|
+          message += "\n\n#{DiffForMultipleRecords.new(attrs, @new_records).call}" unless match_attributes?(attrs)
+        end
         message
       end
 
@@ -78,9 +85,8 @@ module RSpec
         @times.nil? || @times == @new_records.size
       end
 
-      def match_attributes?
-        @attributes.nil? ||
-          @new_records.any? { |record| RSpec::Matchers::BuiltIn::HaveAttributes.new(@attributes).matches?(record) }
+      def match_attributes?(attrs)
+        @new_records.any? { |record| RSpec::Matchers::BuiltIn::HaveAttributes.new(attrs).matches?(record) }
       end
 
       def scope_name

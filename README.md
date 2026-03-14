@@ -43,6 +43,8 @@ You can also make sure that attributes match, if it fails you'll get RSpec diff 
 
 ```ruby
 expect { User.create!(name: "RSpec User") }.to create_record(User).matching(name: "RSpec User")
+expect { User.create!([{name: "RSpec User"}, {name: "Test User"}]) }
+  .to create_record(User).matching({name: "RSpec User"}, {name: "Test User"})
 ```    
 
 You can also achieve similar results using a scope, but not that in this case you won't see a diff:
