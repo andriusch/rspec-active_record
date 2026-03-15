@@ -45,6 +45,12 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       MSG
     end
 
+    it "doesn't match when record does not respond to attribute" do
+      expect do
+        expect { user.update!(name: "changed") }.to change_record(user).to(unknown: "changed")
+      end.to raise_error(NoMethodError, /undefined method 'unknown'/)
+    end
+
     it "matches when record change from initial" do
       expect { user.update!(name: "changed") }.to change_record(user).from(name: "initial")
     end
