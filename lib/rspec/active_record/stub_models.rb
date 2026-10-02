@@ -40,6 +40,7 @@ module RSpec
       # Creates temporary table. Only works correctly if DDL transactions are enabled.
       # Takes same arguments as `create_table` in ActiveRecord migration.
       def create_temporary_table(*args, **options, &block)
+        ::ActiveRecord::Base.connection.clear_cache!
         ::ActiveRecord::Base.connection.create_table(*args, **options, &block)
       end
     end

@@ -45,7 +45,7 @@ module RSpec
 
     # Allows matching that code inside a block destroyed specific record.
     # @param record [ActiveRecord::Base] Model that should be destroyed
-    # @return [ChangeRecord]
+    # @return [DestroyRecord]
     # @example Block destroyed record
     #   expect { user.destroy! }.to destroy_record(user)
     def destroy_record(record)

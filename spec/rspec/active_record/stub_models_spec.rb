@@ -53,16 +53,25 @@ RSpec.describe RSpec::ActiveRecord::StubModels do
     let(:connection) { ApplicationRecord.connection }
 
     it "creates empty table" do
-      create_temporary_table :empty_dummy_table
-      expect(connection.tables).to eq(%w[empty_dummy_table])
+      create_temporary_table :dummy_tables
+      expect(connection.tables).to eq(%w[dummy_tables])
+      expect(connection.columns(:dummy_tables).map(&:name)).to eq(%w[id])
+
+      stub_model(:DummyTable)
+      dummy = DummyTable.create!
+      expect(DummyTable.all).to contain_exactly(dummy)
     end
 
     it "creates table with a column an no id" do
-      create_temporary_table :dummy_table, id: false do |t|
+      create_temporary_table :dummy_tables, id: false do |t|
         t.string :uuid
       end
-      expect(connection.tables).to eq(%w[dummy_table])
-      expect(connection.columns(:dummy_table).map(&:name)).to eq(%w[uuid])
+      expect(connection.tables).to eq(%w[dummy_tables])
+      expect(connection.columns(:dummy_tables).map(&:name)).to eq(%w[uuid])
+
+      stub_model(:DummyTable)
+      DummyTable.create!(uuid: "my_uuid")
+      expect(DummyTable.all).to contain_exactly(have_attributes(uuid: "my_uuid"))
     end
   end
 end
