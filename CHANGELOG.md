@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.4.0] - 2026-10-02
+
 - Allow `create_record.matching` to take multiple attribute hashes
 - Fix query cache causing issues between differently structured tables
 
