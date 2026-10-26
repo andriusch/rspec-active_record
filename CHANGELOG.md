@@ -1,4 +1,5 @@
 ## [Unreleased]
+## [0.5.0] - 2026-10-26
 
 - Implement `change_record.attributes`, which allows shortening `change_record.from`.
 
