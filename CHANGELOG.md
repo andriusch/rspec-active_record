@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Implement `change_record.attributes`, which allows shortening `change_record.from`.
+
 ## [0.4.0] - 2026-10-02
 
 - Allow `create_record.matching` to take multiple attribute hashes

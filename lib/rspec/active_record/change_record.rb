@@ -18,6 +18,11 @@ module RSpec
         self
       end
 
+      # Use the record's current values as the initial attributes
+      def attributes(*names)
+        from(names.index_with { |name| @record.public_send(name) })
+      end
+
       def matches?(block)
         @from_diff = diff_unless_match(@record, @from)
         @to_pre_match = !not_match_attributes?(@record, @to)
@@ -60,7 +65,7 @@ module RSpec
         elsif @to_diff
           "expected to change #{format_record} to #{format_hash(@to)} but did not#{@to_diff}"
         else
-          "please specify from or to for change_record"
+          "please specify attributes, from or to for change_record"
         end
       end
 
@@ -68,7 +73,7 @@ module RSpec
         if @to
           "negative matcher for change_record with to is not supported"
         elsif @from.blank?
-          "negative matcher for change_record without from is not supported"
+          "negative matcher for change_record without attributes or from is not supported"
         elsif @from_diff
           "expected #{format_record} to match #{format_hash(@from)} initially but it did not#{@from_diff}"
         elsif !@from_post_match

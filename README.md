@@ -66,6 +66,14 @@ expect { user.update!(name: "RSpec User") }.to change_record(user).from(name: "I
 expect { user.name = "RSpec User" }.to not_change_record(user).from(name: "Initial Name")
 ```
 
+Use `attributes` to take the initial values from the record, equivalent to
+`from(name: user.name, id: user.id)`:
+```ruby
+expect { user.update!(name: "RSpec User", email: "user@example.com") }
+  .to change_record(user).attributes(:name, :email)
+expect { user.name = "RSpec User" }.to not_change_record(user).attributes(:name, :id)
+```
+
 ### destroy_record
 
 Check that code destroys a record:

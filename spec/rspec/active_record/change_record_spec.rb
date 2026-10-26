@@ -78,11 +78,24 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       MSG
     end
 
+    it "matches when all selected attributes change" do
+      expect { user.update!(name: "changed", email: "user@example.com") }
+        .to change_record(user).attributes(:name, :email)
+    end
+
+    it "doesn't match when a selected attribute stays the same" do
+      expect do
+        expect { user.update!(name: "changed") }.to change_record(user).attributes(:name, :id)
+      end.to fail_with(<<~MSG.chomp)
+        expected to change User#1 from {id: 1, name: "initial"} but did not
+      MSG
+    end
+
     it "doesn't match if from or to is not specified" do
       expect do
         expect { user.update!(name: "changed") }.to change_record(user)
       end.to fail_with(<<~MSG.chomp)
-        please specify from or to for change_record
+        please specify attributes, from or to for change_record
       MSG
     end
 
@@ -136,11 +149,27 @@ RSpec.describe RSpec::ActiveRecord::ChangeRecord do
       MSG
     end
 
+    it "matches when selected attributes have no saved changes" do
+      expect { user.assign_attributes(name: "changed") }.to not_change_record(user).attributes(:name, :id)
+    end
+
+    it "matches when only an unselected attribute changes" do
+      expect { user.update!(email: "user@example.com") }.not_to change_record(user).attributes(:name, :id)
+    end
+
+    it "doesn't match when one of the selected attributes changes" do
+      expect do
+        expect { user.update!(name: "changed") }.to not_change_record(user).attributes(:name, :id)
+      end.to fail_with(<<~MSG.chomp)
+        expected not to change User#1 from {id: 1, name: "initial"} but it did
+      MSG
+    end
+
     it "doesn't match when from is not specified" do
       expect do
         expect { user.update!(name: "changed") }.to not_change_record(user)
       end.to fail_with(<<~MSG.chomp)
-        negative matcher for change_record without from is not supported
+        negative matcher for change_record without attributes or from is not supported
       MSG
     end
 
